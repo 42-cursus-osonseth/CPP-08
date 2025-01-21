@@ -23,8 +23,8 @@ public:
     ~Span();
     void addNumber(int n);
     void printSpan() const;
-    void longestSpan() const;
-    void shortedSpan();
+    long int longestSpan() const;
+    long int shortedSpan();
     class sizeLimit : public std::exception{
         const char *what() const throw();  
     };

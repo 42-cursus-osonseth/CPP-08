@@ -16,7 +16,7 @@ void Span::addNumber(int n)
         std::cout << RED << e.what() << RESET << std::endl;
     }
 }
-void Span::longestSpan() const
+long int Span::longestSpan() const
 {
     try
     {
@@ -24,38 +24,37 @@ void Span::longestSpan() const
             throw Span::cantFindDistance();
         std::vector<int>::const_iterator min = std::min_element(v.begin(), v.end());
         std::vector<int>::const_iterator max = std::max_element(v.begin(), v.end());
-        std::cout << "longest distance is between : " << *min << " and " << *max << std::endl;
+        long int n = std::labs(static_cast<long int>(*max) - static_cast<long int>(*min));
+        return n;
     }
     catch (std::exception &e)
     {
         std::cout << RED << e.what() << RESET << std::endl;
     }
+    return 0;
 }
-void Span::shortedSpan()
+long int Span::shortedSpan()
 {
     try
     {
         if (v.size() < 2)
             throw Span::cantFindDistance();
         std::sort(v.begin(), v.end());
-        std::vector<int>::iterator a;
-        std::vector<int>::iterator b;
-        int distance = INT_MAX;
+        long int distance = LONG_MAX;
         for (std::vector<int>::iterator it = v.begin(); it != v.end() - 1; ++it)
         {
-            if (abs(*(it + 1)) - abs(*it) < distance)
+            if (labs(static_cast<long int>(*(it + 1)) - static_cast<long int>(*it)) < distance)
             {
-                distance = abs(*(it + 1) - *it);
-                a = it;
-                b = (it + 1);
+                distance = labs(static_cast<long int>(*(it + 1)) - static_cast<long int>(*it));
             }
         }
-        std::cout << "shorted distance is between : " << *a << " and " << *b << std::endl;
+        return distance;
     }
     catch (const std::exception &e)
     {
         std::cout << RED << e.what() << RESET << std::endl;
     }
+    return 0;
 }
 void Span::printSpan() const
 {

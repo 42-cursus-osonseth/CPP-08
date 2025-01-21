@@ -3,6 +3,13 @@
 int main()
 {
     {
+        Span span(2);
+        span.addNumber(-2000000000);
+        span.addNumber(2000000000);
+        std::cout << span.longestSpan() << std::endl;
+        std::cout << span.shortedSpan() << std::endl;
+    }
+    {
         Span span(50000);
         srand(time(0));
         for (int i = 0; i < 50000; ++i)
@@ -10,8 +17,9 @@ int main()
             int randomValue = rand() % 10000001 - 5000000;
             span.addNumber(randomValue);
         }
-        span.longestSpan();
-        span.shortedSpan();
+        std::cout << span.longestSpan() << std::endl;
+        std::cout << span.shortedSpan() << std::endl;
+
     }
 
     {
@@ -30,10 +38,9 @@ int main()
         {
             span.addNumber(*it);
         }
-        span.longestSpan();
-        span.shortedSpan();
+        std::cout << span.longestSpan() << std::endl;
+        std::cout << span.shortedSpan() << std::endl;
 
-      
     }
     return 0;
 }
