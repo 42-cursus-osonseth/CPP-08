@@ -25,6 +25,7 @@ public:
     Span &operator=(Span const &other);
     void addNumber(int n);
     void addNumber(unsigned int count, int min, int max);
+    void addNumber (std::vector<int>::iterator start, std::vector<int>::iterator end);
     void printSpan() const;
     long int longestSpan() const;
     long int shortedSpan();

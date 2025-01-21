@@ -43,6 +43,20 @@ void Span::addNumber(unsigned int count, int min, int max)
         std::cerr << RED << e.what() << RESET << std::endl;
     }
 }
+void Span::addNumber(std::vector<int>::iterator start, std::vector<int>::iterator end)
+{
+
+    try
+    {
+        if (static_cast<long unsigned int>(std::distance(start, end)) > maxSize - v.size())
+            throw Span::sizeLimit();
+        v.insert(v.end(), start, end);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << RED << e.what() << RESET << std::endl;
+    }
+}
 
 long int Span::longestSpan() const
 {
