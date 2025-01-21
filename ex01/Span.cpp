@@ -3,6 +3,18 @@
 Span::Span() {}
 Span::Span(unsigned int maxSize) : maxSize(maxSize) {}
 Span::~Span() {}
+Span::Span(Span const &other) : v(other.v), maxSize(other.maxSize)
+{
+}
+Span &Span::operator=(Span const &other)
+{
+    if (this != &other)
+    {
+        maxSize = other.maxSize;
+        v = other.v;
+    }
+    return *this;
+}
 void Span::addNumber(int n)
 {
     try
@@ -13,9 +25,25 @@ void Span::addNumber(int n)
     }
     catch (std::exception &e)
     {
-        std::cout << RED << e.what() << RESET << std::endl;
+        std::cerr << RED << e.what() << RESET << std::endl;
     }
 }
+void Span::addNumber(unsigned int count, int min, int max)
+{
+    try
+    {
+        if (count > maxSize - v.size())
+            throw Span::sizeLimit();
+        srand(time(0));
+        for (unsigned int i = 0; i < count; ++i)
+            v.push_back(rand() % (max - min + 1) + min);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << RED << e.what() << RESET << std::endl;
+    }
+}
+
 long int Span::longestSpan() const
 {
     try
@@ -29,7 +57,7 @@ long int Span::longestSpan() const
     }
     catch (std::exception &e)
     {
-        std::cout << RED << e.what() << RESET << std::endl;
+        std::cerr << RED << e.what() << RESET << std::endl;
     }
     return 0;
 }
@@ -52,12 +80,21 @@ long int Span::shortedSpan()
     }
     catch (const std::exception &e)
     {
-        std::cout << RED << e.what() << RESET << std::endl;
+        std::cerr << RED << e.what() << RESET << std::endl;
     }
     return 0;
 }
 void Span::printSpan() const
 {
-    for (std::vector<int>::const_iterator it = v.begin(); it != v.end(); ++it)
-        std::cout << *it << std::endl;
+    try
+    {
+        if (v.size() == 0)
+            throw Span::emptySpan();
+        for (std::vector<int>::const_iterator it = v.begin(); it != v.end(); ++it)
+            std::cout << *it << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << RED << e.what() << RESET << std::endl;
+    }
 }

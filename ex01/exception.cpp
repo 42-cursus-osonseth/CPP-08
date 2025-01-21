@@ -7,3 +7,7 @@ const char *Span::cantFindDistance::what() const throw()
 {
     return ("The span contains less than 2 elements, can't find distance");
 }
+const char *Span::emptySpan::what() const throw()
+{
+    return ("The span is empty");
+}

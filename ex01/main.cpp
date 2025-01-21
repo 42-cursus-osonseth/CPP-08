@@ -2,6 +2,19 @@
 
 int main()
 {
+
+    {
+        Span a(5);
+
+        a.addNumber(5, -10000, 10000);
+       
+        Span b = a;
+        Span c(3);
+        c.addNumber(3, -10, 10);
+        c.printSpan();
+        b = a = c;
+        b.printSpan();
+    }
     {
         Span span(2);
         span.addNumber(-2000000000);
@@ -11,36 +24,11 @@ int main()
     }
     {
         Span span(50000);
-        srand(time(0));
-        for (int i = 0; i < 50000; ++i)
-        {
-            int randomValue = rand() % 10000001 - 5000000;
-            span.addNumber(randomValue);
-        }
+        span.addNumber(50000, 0, 100000);
         std::cout << span.longestSpan() << std::endl;
         std::cout << span.shortedSpan() << std::endl;
 
     }
 
-    {
-        Span span(50000);
-
-        srand(time(0));
-
-        std::set<int> uniqueNumbers;
-
-        while (uniqueNumbers.size() < 50000)
-        {
-            int randomValue = rand() % 10000001 - 5000000;
-            uniqueNumbers.insert(randomValue);
-        }
-        for (std::set<int>::iterator it = uniqueNumbers.begin(); it != uniqueNumbers.end(); ++it)
-        {
-            span.addNumber(*it);
-        }
-        std::cout << span.longestSpan() << std::endl;
-        std::cout << span.shortedSpan() << std::endl;
-
-    }
     return 0;
 }

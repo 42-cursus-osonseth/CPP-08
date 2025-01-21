@@ -21,7 +21,10 @@ private:
 public:
     Span(unsigned int maxSize);
     ~Span();
+    Span(Span const &other);
+    Span &operator=(Span const &other);
     void addNumber(int n);
+    void addNumber(unsigned int count, int min, int max);
     void printSpan() const;
     long int longestSpan() const;
     long int shortedSpan();
@@ -29,6 +32,9 @@ public:
         const char *what() const throw();  
     };
     class cantFindDistance : public std::exception{
+        const char *what() const throw();  
+    };
+    class emptySpan : public std::exception{
         const char *what() const throw();  
     };
 };
