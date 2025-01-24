@@ -9,26 +9,41 @@ class MutantStack : public std::stack<T>
 public:
     MutantStack();
     ~MutantStack();
-
-    typename MutantStack<T>::iterator begin();
-    typename MutantStack<T>::iterator end();
-
-    class iterator
+    MutantStack(MutantStack const &other);
+    MutantStack &operator=(MutantStack<T> const &other);
+    typedef typename std::stack<T>::container_type::iterator iterator;
+    typedef typename std::stack<T>::container_type::const_iterator const_iterator;
+    typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
+    typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
+    iterator begin()
     {
-    private:
-        typename std::stack<T>::container_type::iterator it;
+        return this->c.begin();
+    }
 
-    public:
-        iterator();
-        ~iterator();
-        iterator(typename std::stack<T>::container_type::iterator it);
-        T &operator*();
-        iterator &operator--();
-        iterator &operator++();
-        iterator &operator--(int);
-        iterator &operator++(int);
-        bool operator!=(const iterator &other) const;
-    };
+    iterator end()
+    {
+        return this->c.end();
+    }
+    const_iterator begin() const
+    {
+        return this->c.begin();
+    }
+    reverse_iterator rbegin()
+    {
+        return this->c.rbegin();
+    }
+    reverse_iterator rend()
+    {
+        return this->c.rend();
+    }
+    const_reverse_iterator rbegin() const
+    {
+        return this->c.rbegin();
+    }
+    const_reverse_iterator rend() const
+    {
+        return this->c.rend();
+    }
 };
 
 template <typename T>
@@ -36,59 +51,12 @@ MutantStack<T>::MutantStack() {}
 
 template <typename T>
 MutantStack<T>::~MutantStack() {}
-
 template <typename T>
-MutantStack<T>::iterator::iterator() : it() {}
-
+MutantStack<T>::MutantStack(const MutantStack &other) : std::stack<T>(other) {}
 template <typename T>
-MutantStack<T>::iterator::iterator(typename std::stack<T>::container_type::iterator it) : it(it) {}
-
-template <typename T>
-MutantStack<T>::iterator::~iterator() {}
-
-template <typename T>
-typename MutantStack<T>::iterator MutantStack<T>::begin()
+MutantStack<T> &MutantStack<T>::operator=(const MutantStack &other)
 {
-    return iterator(this->c.begin());
-}
-template <typename T>
-typename MutantStack<T>::iterator MutantStack<T>::end()
-{
-    return iterator(this->c.end());
-}
-template <typename T>
-T &MutantStack<T>::iterator::operator*()
-{
-    return *it;
-}
-template <typename T>
-typename MutantStack<T>::iterator &MutantStack<T>::iterator::operator--()
-{
-    --it;
+    if (this != &other)
+        std::stack<T>::operator=(other);
     return *this;
-}
-template <typename T>
-typename MutantStack<T>::iterator &MutantStack<T>::iterator::operator++()
-{
-    ++it;
-    return *this;
-}
-template <typename T>
-typename MutantStack<T>::iterator &MutantStack<T>::iterator::operator--(int)
-{
-    iterator tmp = *this;
-    --it;
-    return *tmp;
-}
-template <typename T>
-typename MutantStack<T>::iterator &MutantStack<T>::iterator::operator++(int)
-{
-    iterator tmp = *this;
-    ++it;
-    return *tmp;
-}
-template <typename T>
-bool MutantStack<T>::iterator::operator!=(const iterator &other) const
-{
-    return it != other.it;
 }
